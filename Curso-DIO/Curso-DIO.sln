@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curso-DIO", "Curso-DIO\Curso-DIO.csproj", "{509A841C-FD0C-4DE5-BA70-43B267115891}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{509A841C-FD0C-4DE5-BA70-43B267115891}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509A841C-FD0C-4DE5-BA70-43B267115891}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509A841C-FD0C-4DE5-BA70-43B267115891}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509A841C-FD0C-4DE5-BA70-43B267115891}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C27AC87C-BC89-4910-8222-399E314DBE76}
+	EndGlobalSection
+EndGlobal

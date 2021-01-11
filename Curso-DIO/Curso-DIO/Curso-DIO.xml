@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Curso-DIO</name>
+    </assembly>
+    <members>
+        <member name="M:Curso_DIO.Controllers.UsuarioController.Logar(Curso_DIO.Models.Usuarios.LoginViewModelInput)">
+            <summary>
+            teste
+            </summary>
+            <param name="loginViewModelInput"></param>
+            <returns>Retornar status ok,dados do usuario e o token e ativo.</returns>
+        </member>
+    </members>
+</doc>
