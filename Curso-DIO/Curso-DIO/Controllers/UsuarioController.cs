@@ -1,7 +1,11 @@
-﻿using Curso_DIO.Models;
+﻿
+using Curso_DIO.Business.Entities;
+using Curso_DIO.Infraestrutura.Data;
+using Curso_DIO.Models;
 using Curso_DIO.Models.Usuarios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -70,11 +74,20 @@ namespace Curso_DIO.Controllers
 
         [HttpPost]
         [Route("registrar")]
-        public IActionResult Registrar(RegistrarViewModelInput registrarViewModelInput)
+        public IActionResult Registrar(RegistrarViewModelInput loginViewModelInput)
         {
-           
+            var optionsBuilder = new DbContextOptionsBuilder<CursoDbContext>();
+            optionsBuilder.UseSqlServer();
+            CursoDbContext contexto = new CursoDbContext(optionsBuilder.Options);
+
+            var usuario = new Usuario();
+            usuario.Login = loginViewModelInput.Login;
+            usuario.Senha = loginViewModelInput.Senha;
+            usuario.Email = loginViewModelInput.Email;
+            contexto.Usuario.Add(usuario);
+
             
-            return Created("", registrarViewModelInput);
+            return Created("", loginViewModelInput);
         }
     }
 }

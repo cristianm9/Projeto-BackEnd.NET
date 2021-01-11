@@ -34,10 +34,29 @@ namespace Curso_DIO
 
             services.AddSwaggerGen(c =>
             {
-                c.AddSecurityDefinition("Bearer",new OpenApiSecurityScheme 
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme(Example: 'Bearer 12345abcdef')"
-                })
+                    Description = "JWT Authorization header using the Bearer scheme(Example: 'Bearer 12345abcdef')",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type =  ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
 
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -45,25 +64,12 @@ namespace Curso_DIO
                 c.IncludeXmlComments(xmlPath);
             
             });
-
-            var secret = Encoding.ASCII.GetBytes(Configuration.GetSection("JwtConfigurations: Secret").Value);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-                .AddJwtBearer(x =>
-                {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(secret),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+            });
+                
 
 
 
