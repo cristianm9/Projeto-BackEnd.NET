@@ -2,10 +2,14 @@
 using Curso_DIO.Models.Usuarios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Curso_DIO.Controllers
@@ -14,6 +18,8 @@ namespace Curso_DIO.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private object _configuration;
+
         /// <summary>
         /// teste
         /// </summary>
@@ -26,13 +32,48 @@ namespace Curso_DIO.Controllers
         [Route("logar")]
         public IActionResult Logar(LoginViewModelInput loginViewModelInput)
         {
-            return Ok(loginViewModelInput);
+            //if(!ModelState.IsValid)
+            //{
+            //    return BadRequest(new ValidaCampoViewModelOutput(ModelState.SelectMany(sm => sm.Value.Errors).Select(s => s.ErrorMessage)));
+            //}
+            var usuarioViewModelOutput = new UsuarioViewModelOutput()
+            {
+                Codigo = 1,
+                Login = "Cris",
+                Email = "Cris@gmail.com"
+            };
+
+            var secret = Encoding.ASCII.GetBytes("a7t1HbcUa7t1Hbca7t1HbcUAHk2QMQM");
+            var symmetricSecurityKey = new SymmetricSecurityKey(secret);
+            var securityTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, usuarioViewModelOutput.Codigo.ToString()),
+                    new Claim(ClaimTypes.Name, usuarioViewModelOutput.Login.ToString()),
+                    new Claim(ClaimTypes.Email, usuarioViewModelOutput.Email.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature) 
+                
+            };
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var tokenGenerated = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            var token = jwtSecurityTokenHandler.WriteToken(tokenGenerated);
+             
+            return Ok(new 
+            {
+             Token= token,
+             Usuario = usuarioViewModelOutput
+            });
         }
 
         [HttpPost]
         [Route("registrar")]
         public IActionResult Registrar(RegistrarViewModelInput registrarViewModelInput)
         {
+           
+            
             return Created("", registrarViewModelInput);
         }
     }
