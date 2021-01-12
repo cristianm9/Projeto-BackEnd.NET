@@ -4,12 +4,26 @@
         <name>Curso-DIO</name>
     </assembly>
     <members>
+        <member name="M:Curso_DIO.Controllers.CursoController.Post(Curso_DIO.Models.Cursos.CursoViewModelInput)">
+            <summary>
+            teste
+            </summary>
+            <param name="loginViewModelInput"></param>
+            <returns>Retornar status ok,dados do usuario e o token e ativo.</returns>
+        </member>
         <member name="M:Curso_DIO.Controllers.UsuarioController.Logar(Curso_DIO.Models.Usuarios.LoginViewModelInput)">
             <summary>
             teste
             </summary>
             <param name="loginViewModelInput"></param>
             <returns>Retornar status ok,dados do usuario e o token e ativo.</returns>
+            
+        </member>
+        <member name="M:Curso_DIO.Controllers.UsuarioController.Registrar(Curso_DIO.Models.Usuarios.RegistrarViewModelInput)">
+            <summary>
+            Este Serviço  permite cadastrar  um usuario   cadastrado nao existente 
+            </summary>
+            <param name="registro">View Model  do Registro de Login</param>
         </member>
     </members>
 </doc>

@@ -7,3 +7,5 @@
 ------
 
 - Cadastro e validação de e-mails e senhas .
+- Segurança e Frameworks.
+- Design pattern.
